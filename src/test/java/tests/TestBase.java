@@ -3,10 +3,16 @@ package tests;
 import api.example.ApiClient;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
+import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Map;
 
 public class TestBase {
 
@@ -16,21 +22,32 @@ public class TestBase {
     public static void setUp() {
         RestAssured.baseURI = "https://market.petsfera.ru/";
         Configuration.baseUrl = "https://market.petsfera.ru/";
-        Configuration.timeout = 20000;
+        Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = System.getProperty("remoteUrl");
+
+    DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map .<String, Object>of(
+                "enableVNC", true,
+                        "enableVideo", true
+    ));
+    Configuration.browserCapabilities = capabilities;
+}
+   /* @AfterEach
+    void afterEach() {
+        Selenide.closeWebDriver();
+    } */
+    @BeforeEach
+    void setUp2() {
+            SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+            Configuration.remote = System.getProperty("remoteUrl");
     }
 
     @AfterEach
-    void afterEach() {
+    void addAttachments() {
         Selenide.closeWebDriver();
+            Attach.screenshotAs("Last screenshot");
+            Attach.pageSource();
+            Attach.browserConsoleLogs();
+            Attach.addVideo();
+        }
     }
-}
-
-/*@BeforeAll
-static void beforeAll() {
-    Configuration.baseUrl = "https://demoqa.com";
-    Configuration.browserSize = "1920x1080";
-    Configuration.timeout = 10000;
-    Configuration.pageLoadStrategy = "eager";
-}*/
