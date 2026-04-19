@@ -20,7 +20,7 @@ public class TestBase {
     @BeforeAll
     public static void setUp() {
         RestAssured.baseURI = "https://market.petsfera.ru/";
-        Configuration.baseUrl = "https://market.petsfera.ru/";
+        Configuration.baseUrl = "https://demoqa.com";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
         Configuration.browser = System.getProperty("browser", "chrome");
@@ -31,7 +31,6 @@ public class TestBase {
         if (remoteUrl != null && !remoteUrl.isEmpty()) {
             Configuration.remote = remoteUrl;
         }
-
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(

@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
     id 'io.qameta.allure' version '2.12.0'
     id 'io.freefair.lombok' version "9.2.0"
-
 }
 
 repositories {
@@ -49,7 +48,6 @@ dependencies {
     systemProperty "file.encoding", "utf-8"
    // systemProperty "selenide.fileEncoding", "utf-8"
 } */
-
 
 tasks.withType(Test) {
     useJUnitPlatform()
