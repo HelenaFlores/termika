@@ -24,10 +24,10 @@ public class TestBase {
         Configuration.baseUrl = "https://market.petsfera.ru/";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = System.getProperty("remoteUrl");
+        Configuration.remote = System.getProperty("remoteUrl", System.getenv("REMOTE_URL"));
 
-    DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map .<String, Object>of(
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                         "enableVideo", true
     ));

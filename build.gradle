@@ -54,6 +54,10 @@ dependencies {
 tasks.withType(Test) {
     useJUnitPlatform()
     systemProperties(System.getProperties())
+    def remoteUrl = System.getProperty("remoteUrl") ?: System.getenv("REMOTE_URL")
+    if (remoteUrl) {
+        systemProperty "remoteUrl", remoteUrl
+    }
 
     testLogging {
         lifecycle {
@@ -67,5 +71,4 @@ task baseTests(type: Test) {
     useJUnitPlatform {
         includeTags("baseTests")
     }
-    systemProperties = System.getProperties()
 }
