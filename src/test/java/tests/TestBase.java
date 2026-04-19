@@ -1,5 +1,6 @@
 package tests;
 
+import api.example.ApiClient;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.restassured.RestAssured;

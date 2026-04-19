@@ -12,6 +12,9 @@ import models.example.update.SuccessfulUpdateResponseModel;
 import models.example.update.WrongUpdateMethodAllowedResponseModel;
 
 import static io.restassured.RestAssured.given;
+import static specs.example.login.LoginSpec.*;
+import static specs.example.logout.LogoutSpec.*;
+import static specs.example.update.UpdateSpec.*;
 
 public class AuthApiClient {
 

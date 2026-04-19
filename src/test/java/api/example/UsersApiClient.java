@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import models.example.registration.*;
 
 import static io.restassured.RestAssured.given;
+import static specs.example.registration.RegistrationSpec.*;
 
 public class UsersApiClient {
 
