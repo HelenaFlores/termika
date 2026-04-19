@@ -68,4 +68,11 @@ task baseTests(type: Test) {
         includeTags("baseTests")
     }
     systemProperties = System.getProperties()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
 }
