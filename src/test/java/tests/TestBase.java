@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.List;
 import java.util.Map;
 
 public class TestBase {
@@ -30,12 +31,22 @@ public class TestBase {
             Configuration.remote = remoteUrl;
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
+            // Игнорируем SSL ошибки
             capabilities.setCapability("acceptInsecureCerts", true);
-            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+
+            // Дополнительные аргументы Chrome
+            capabilities.setCapability("goog:chromeOptions", Map.of(
+                    "args", List.of(
+                            "--ignore-certificate-errors",
+                            "--ignore-ssl-errors",
+                            "--allow-insecure-localhost"
+                    )
+            ));
+
+            capabilities.setCapability("selenoid:options", Map.of(
                     "enableVNC", true,
                     "enableVideo", true
             ));
-            Configuration.browserCapabilities = capabilities;
             SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                     .screenshots(true)
                     .savePageSource(true));
