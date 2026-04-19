@@ -25,33 +25,28 @@ public class TestBase {
         Configuration.timeout = 30000;  // увеличил для удалённого запуска
         Configuration.pageLoadStrategy = "eager";
 
-        // Диагностика
         String remoteUrl = System.getProperty("remoteUrl");
-        System.out.println("=== DIAGNOSTIC: remoteUrl = '" + remoteUrl + "' ===");
-        System.out.println("=== DIAGNOSTIC: Configuration.baseUrl = '" + Configuration.baseUrl + "' ===");
-
-        if (remoteUrl != null && !remoteUrl.isEmpty() && !remoteUrl.equals("null")) {
+        if (remoteUrl != null && !remoteUrl.isEmpty()) {
             Configuration.remote = remoteUrl;
-            Configuration.browser = "chrome";
-            Configuration.browserVersion = "128.0";
-            System.out.println("=== Remote mode ENABLED: " + Configuration.remote + " ===");
-        } else {
-            System.out.println("=== Remote mode DISABLED, running locally ===");
-        }
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
-        Configuration.browserCapabilities = capabilities;
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("acceptInsecureCerts", true);
+            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                    "enableVNC", true,
+                    "enableVideo", true
+            ));
+            Configuration.browserCapabilities = capabilities;
+            SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                    .screenshots(true)
+                    .savePageSource(true));
+        }
     }
 
-    @BeforeEach
+    /* @BeforeEach
     void setUp2() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
-   /* @AfterEach
+    @AfterEach
     void afterEach() {
         Selenide.closeWebDriver();
     }
@@ -60,8 +55,8 @@ public class TestBase {
             SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }*/
 
-    @AfterEach
-    void addAttachments() {
+        @AfterEach
+        void addAttachments() {
             Attach.screenshotAs("Last screenshot");
             Attach.pageSource();
             Attach.browserConsoleLogs();
