@@ -24,7 +24,7 @@ public class TestBase {
         Configuration.baseUrl = "https://market.petsfera.ru/";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = System.getProperty("remoteUrl", System.getenv("REMOTE_URL"));
+        Configuration.remote = System.getProperty("remoteUrl");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
