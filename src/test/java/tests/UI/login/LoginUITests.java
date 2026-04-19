@@ -1,5 +1,6 @@
 package tests.UI.login;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -18,6 +19,7 @@ public class LoginUITests extends TestBase {
 
     @CsvFileSource(resources = "/test_data/authorizationWithAllFilledFieldsTest.csv")
     @ParameterizedTest(name = "Авторизация с верно заполненнным логином {0} и паролем {1}")
+    @Tag("baseTests")
     public void successfulLoginTest(String email, String password) {
         homePage
                 .openPage()

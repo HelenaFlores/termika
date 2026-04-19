@@ -30,7 +30,7 @@ allure {
 
 dependencies {
     testImplementation(
-            "com.codeborne:selenide:7.0.2",
+            "com.codeborne:selenide:7.2.3",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
@@ -43,6 +43,13 @@ dependencies {
             "io.qameta.allure:allure-selenide:2.29.0"
     )
 }
+/* test {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+    systemProperty "file.encoding", "utf-8"
+   // systemProperty "selenide.fileEncoding", "utf-8"
+} */
+
 
 tasks.withType(Test) {
     useJUnitPlatform()
@@ -60,5 +67,5 @@ task baseTests(type: Test) {
     useJUnitPlatform {
         includeTags("baseTests")
     }
-    systemProperty 'remoteUrl', System.getProperty('remoteUrl')
+    systemProperties = System.getProperties()
 }

@@ -24,6 +24,7 @@ public class TestBase {
         Configuration.baseUrl = "https://market.petsfera.ru/";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
+        Configuration.remote = System.getProperty("remoteUrl");
 
     DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map .<String, Object>of(
@@ -39,15 +40,14 @@ public class TestBase {
     @BeforeEach
     void setUp2() {
             SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-            Configuration.remote = System.getProperty("remoteUrl");
     }
 
     @AfterEach
     void addAttachments() {
-        Selenide.closeWebDriver();
             Attach.screenshotAs("Last screenshot");
             Attach.pageSource();
             Attach.browserConsoleLogs();
             Attach.addVideo();
+        Selenide.closeWebDriver();
         }
     }
