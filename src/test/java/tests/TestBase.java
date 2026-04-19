@@ -18,17 +18,7 @@ public class TestBase {
         Configuration.baseUrl = "https://market.petsfera.ru/";
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
-    }
-
-    @BeforeEach
-    void setUp1() {
-        String remoteUrl = System.getProperty("remoteUrl");
-        if (remoteUrl != null) {
-            Configuration.remote = remoteUrl;
-            Configuration.browser = "chrome"; // или какой используете
-            Configuration.browserVersion = "126.0";
-            Configuration.browserSize = "1920x1080";
-        }
+        Configuration.remote = System.getProperty("remoteUrl");
     }
 
     @AfterEach
