@@ -25,22 +25,27 @@ public class TestBase {
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = System.getProperty("remoteUrl");
+        Configuration.browser = "chrome";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserVersion", "128.0");
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                         "enableVideo", true
     ));
     Configuration.browserCapabilities = capabilities;
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .savePageSource(true));
 }
    /* @AfterEach
     void afterEach() {
         Selenide.closeWebDriver();
-    } */
+    }
     @BeforeEach
     void setUp2() {
             SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-    }
+    }*/
 
     @AfterEach
     void addAttachments() {
