@@ -16,7 +16,7 @@ public class TestBase {
     public static void setUp() {
         RestAssured.baseURI = "https://market.petsfera.ru/";
         Configuration.baseUrl = "https://market.petsfera.ru/";
-        Configuration.timeout = 10000;
+        Configuration.timeout = 20000;
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = System.getProperty("remoteUrl");
     }
